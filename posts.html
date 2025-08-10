@@ -1,0 +1,136 @@
+---
+layout: default
+title: Posts
+permalink: /posts/
+---
+
+<div class="container">
+    <header class="page-header">
+        <h1>All Posts</h1>
+        <p>My writeups, research notes, and learning adventures</p>
+    </header>
+
+    <!-- Filter -->
+    <div class="filter-section">
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="research">Research</button>
+            <button class="filter-btn" data-filter="ctf">CTF</button>
+            <button class="filter-btn" data-filter="tutorial">Tutorial</button>
+        </div>
+    </div>
+
+    <!-- Posts Grid -->
+    <div id="posts-grid" class="card-grid">
+        {% for post in site.posts %}
+        <article class="card post-card" 
+                 data-tags="{{ post.tags | join: ' ' | downcase }}" 
+                 data-title="{{ post.title | downcase }}"
+                 data-content="{{ post.content | strip_html | downcase }}">
+            <div class="card-header">
+                {% if post.cover_image %}
+                <img src="{{ post.cover_image }}" alt="{{ post.title }}" class="card-image">
+                {% else %}
+                <div class="card-placeholder">
+                    <span class="placeholder-icon">{{ post.category_icon | default: "👨🏻‍💻" }}</span>
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="card-body">
+                <h3 class="card-title">
+                    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                </h3>
+                <p class="card-excerpt">{{ post.content | strip_html | truncatewords: 30 }}</p>
+                <div class="card-meta">
+                    <div class="card-date">
+                        <span>📅</span>
+                        <span>{{ post.date | date: "%B %d, %Y" }}</span>
+                    </div>
+                    <div class="card-tags">
+                        {% for tag in post.tags limit:2 %}
+                        <span class="tag">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+
+    <!-- No results message -->
+    <div id="no-results" class="no-results hidden">
+        <div class="no-results-icon">🔍</div>
+        <h3>No posts found</h3>
+        <p>Try adjusting your search or filter criteria</p>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const postsGrid = document.getElementById('posts-grid');
+    const noResults = document.getElementById('no-results');
+    const postCards = document.querySelectorAll('.post-card');
+
+    let currentFilter = 'all';
+
+    // Filter functionality
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Update active button
+            filterBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+
+            currentFilter = this.dataset.filter;
+            filterPosts();
+        });
+    });
+
+    function filterPosts() {
+        let visibleCount = 0;
+
+        postCards.forEach(card => {
+            const tags = card.dataset.tags;
+
+            // Check filter
+            const matchesFilter = currentFilter === 'all' || tags.includes(currentFilter);
+
+            if (matchesFilter) {
+                card.style.display = 'block';
+                visibleCount++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        // Show/hide no results message
+        if (visibleCount === 0) {
+            noResults.classList.remove('hidden');
+        } else {
+            noResults.classList.add('hidden');
+        }
+    }
+});
+</script>
+
+<style>
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.filter-btn.active {
+    background-color: #00ff88 !important;
+    color: #0a0a0a !important;
+}
+</style>

@@ -1,0 +1,260 @@
+---
+layout: default
+---
+
+<!-- Mobile TOC toggle -->
+<button class="toc-toggle" id="toc-toggle" aria-label="Toggle table of contents">
+    📋
+</button>
+
+<aside class="toc-sidebar" id="toc-sidebar">
+    <div class="toc-content">
+        <h3>Contents</h3>
+        <nav id="table-of-contents"></nav>
+    </div>
+</aside>
+
+<div class="post-container">
+    <article class="post-article">
+        <header class="post-header">
+        {% if page.cover_image %}
+        <div class="post-cover">
+            <img src="{{ page.cover_image }}" alt="{{ page.title }}" class="post-cover-image">
+        </div>
+        {% endif %}
+        
+        <h1 class="post-title">{{ page.title }}</h1>
+        
+        <div class="post-meta">
+            <div class="meta-item">
+                <span>📅</span>
+                <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time>
+            </div>
+            
+            {% if page.author %}
+            <div class="meta-item">
+                <span>👤</span>
+                <span>{{ page.author }}</span>
+            </div>
+            {% endif %}
+            
+            {% if page.read_time %}
+            <div class="meta-item">
+                <span>⏱️</span>
+                <span>{{ page.read_time }} min read</span>
+            </div>
+            {% endif %}
+        </div>
+        
+        {% if page.tags %}
+        <div class="post-tags">
+            {% for tag in page.tags %}
+            <span class="tag">{{ tag }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+    </header>
+    
+    <div class="post-content">
+        {{ content }}
+    </div>
+    
+    <footer class="post-footer">
+        <div class="post-footer-content">
+            <div class="post-date">
+                <p>Published on {{ page.date | date: "%B %d, %Y" }}</p>
+            </div>
+            <div class="post-actions">
+                <a href="#" class="action-link">Share</a>
+                <a href="{{ '/posts/' | relative_url }}" class="btn-primary">← Back to Posts</a>
+            </div>
+        </div>
+    </footer>
+    </article>
+</div>
+
+<style>
+/* Custom prose styles for better markdown rendering */
+.prose {
+    color: #ffffff;
+    max-width: none;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+    color: #ffffff;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.prose h1 {
+    font-size: 2.25rem;
+    border-bottom: 2px solid var(--accent-primary);
+    padding-bottom: 0.5rem;
+}
+
+.prose h2 {
+    font-size: 1.875rem;
+    border-bottom: 1px solid #333333;
+    padding-bottom: 0.25rem;
+}
+
+.prose h3 {
+    font-size: 1.5rem;
+    color: var(--accent-primary);
+}
+
+.prose p {
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+    color: #b0b0b0;
+}
+
+.prose a {
+    color: var(--accent-primary);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.prose a:hover {
+    color: #ff6b6b;
+    border-bottom-color: #ff6b6b;
+}
+
+.prose code {
+    background: #1e1e1e;
+    color: var(--accent-primary);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.875rem;
+}
+
+.prose pre {
+    background: #1e1e1e !important;
+    border: 1px solid #333333;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    position: relative;
+}
+
+.prose pre code {
+    background: none;
+    color: #ffffff;
+    padding: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.prose blockquote {
+    border-left: 4px solid var(--accent-primary);
+    background: #1a1a1a;
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 0.25rem;
+}
+
+.prose blockquote p {
+    color: #ffffff;
+    font-style: italic;
+    margin: 0;
+}
+
+.prose ul, .prose ol {
+    margin: 1.5rem 0;
+    padding-left: 2rem;
+}
+
+.prose li {
+    margin-bottom: 0.5rem;
+    color: #b0b0b0;
+}
+
+.prose li::marker {
+    color: var(--accent-primary);
+}
+
+.prose table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    background: #1a1a1a;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.prose th, .prose td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #333333;
+}
+
+.prose th {
+    background: #2a2a2a;
+    color: var(--accent-primary);
+    font-weight: 600;
+}
+
+.prose td {
+    color: #b0b0b0;
+}
+
+.prose img {
+    border-radius: 0.5rem;
+    margin: 1.5rem 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.prose hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #333333, transparent);
+    margin: 2rem 0;
+}
+
+/* Syntax highlighting improvements */
+.prose .highlight {
+    background: #1e1e1e;
+    border-radius: 0.5rem;
+    border: 1px solid #333333;
+}
+
+.prose .highlight pre {
+    background: none !important;
+    border: none;
+    margin: 0;
+}
+
+/* Line numbers */
+.prose .highlight .lineno {
+    color: #666666;
+    user-select: none;
+    margin-right: 1rem;
+}
+
+/* Copy button for code blocks */
+.prose pre::before {
+    content: 'Copy';
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: var(--accent-primary);
+    color: #0a0a0a;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+}
+
+.prose pre:hover::before {
+    opacity: 1;
+}
+</style>

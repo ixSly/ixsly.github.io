@@ -1,0 +1,30 @@
+title: "ixSly"
+description: "Personal security research notes and CTF adventures"
+url: "https://yourdomain.com"
+baseurl: ""
+
+# Build settings
+markdown: kramdown
+highlighter: none
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Kramdown settings for Prism.js
+kramdown:
+  input: GFM
+  syntax_highlighter: none
+
+# Permalink structure for posts
+permalink: /:year/:month/:day/:title/
+
+# Exclude
+exclude:
+  - node_modules/
+  - package*.json
+  - Gemfile
+  - Gemfile.lock
+  - vendor/

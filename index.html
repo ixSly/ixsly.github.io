@@ -1,0 +1,55 @@
+---
+layout: default
+---
+
+<div class="hero">
+    <div class="container">
+        <h1 class="hero-title">ixSly's Security Lab</h1>
+        <p class="hero-subtitle">My journey through cybersecurity, CTF challenges, and vulnerability research</p>
+    </div>
+</div>
+
+<div class="container">
+    <section class="content-section">
+        <h2>Latest Posts</h2>
+        <div class="card-grid">
+            {% for post in site.posts limit:6 %}
+            <article class="card">
+                <div class="card-header">
+                    {% if post.cover_image %}
+                    <img src="{{ post.cover_image }}" alt="{{ post.title }}" class="card-image">
+                    {% else %}
+                    <div class="card-placeholder">
+                        <span class="placeholder-icon">{{ post.category_icon | default: "👨🏻‍💻" }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="card-body">
+                    <h3 class="card-title">
+                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                    </h3>
+                    <p class="card-excerpt">{{ post.content | strip_html | truncatewords: 30 }}</p>
+                    <div class="card-meta">
+                        <div class="card-date">
+                            <span>📅</span>
+                            <span>{{ post.date | date: "%B %d, %Y" }}</span>
+                        </div>
+                        <div class="card-tags">
+                            {% for tag in post.tags limit:2 %}
+                            <span class="tag">{{ tag }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="{{ '/posts/' | relative_url }}" class="btn-primary">
+                View All Posts →
+            </a>
+        </div>
+    </section>
+</div>

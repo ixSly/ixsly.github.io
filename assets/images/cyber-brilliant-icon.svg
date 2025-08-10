@@ -1,0 +1,130 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Cyber glow effect -->
+    <filter id="cyberGlow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Inner glow -->
+    <filter id="innerGlow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Gradient for the diamond -->
+    <linearGradient id="diamondGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff4757;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#e74c3c;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#c0392b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a93226;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Circuit pattern -->
+    <pattern id="circuitPattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <rect width="20" height="20" fill="none"/>
+      <path d="M5,5 L15,5 M10,5 L10,15 M5,15 L15,15" stroke="#333" stroke-width="0.5" opacity="0.3"/>
+      <circle cx="5" cy="5" r="1" fill="#e74c3c" opacity="0.4"/>
+      <circle cx="15" cy="15" r="1" fill="#e74c3c" opacity="0.4"/>
+    </pattern>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="#0a0a0a"/>
+  <rect width="400" height="300" fill="url(#circuitPattern)" opacity="0.3"/>
+  
+  <!-- Main diamond shape (cyber brilliant move icon) -->
+  <g transform="translate(200, 150)">
+    <!-- Outer diamond glow -->
+    <polygon points="0,-80 60,-40 60,40 0,80 -60,40 -60,-40" 
+             fill="#e74c3c" 
+             opacity="0.3" 
+             filter="url(#cyberGlow)"/>
+    
+    <!-- Main diamond body -->
+    <polygon points="0,-70 50,-35 50,35 0,70 -50,35 -50,-35" 
+             fill="url(#diamondGradient)" 
+             stroke="#ff4757" 
+             stroke-width="2" 
+             filter="url(#innerGlow)"/>
+    
+    <!-- Inner facets (geometric cyber style) -->
+    <polygon points="0,-70 25,-52 25,-17 0,-35" fill="#ff6b7d" opacity="0.8"/>
+    <polygon points="0,-70 -25,-52 -25,-17 0,-35" fill="#ff6b7d" opacity="0.6"/>
+    <polygon points="0,70 25,52 25,17 0,35" fill="#c0392b" opacity="0.8"/>
+    <polygon points="0,70 -25,52 -25,17 0,35" fill="#a93226" opacity="0.8"/>
+    
+    <!-- Center core -->
+    <polygon points="0,-35 25,-17 25,17 0,35 -25,17 -25,-17" 
+             fill="#e74c3c" 
+             opacity="0.9"
+             filter="url(#innerGlow)"/>
+    
+    <!-- Cyber enhancement lines -->
+    <g stroke="#00ff88" stroke-width="1.5" fill="none" opacity="0.7" filter="url(#cyberGlow)">
+      <line x1="-40" y1="-28" x2="40" y2="-28"/>
+      <line x1="-40" y1="0" x2="40" y2="0"/>
+      <line x1="-40" y1="28" x2="40" y2="28"/>
+      <line x1="-28" y1="-40" x2="-28" y2="40"/>
+      <line x1="0" y1="-50" x2="0" y2="50"/>
+      <line x1="28" y1="-40" x2="28" y2="40"/>
+    </g>
+    
+    <!-- Digital sparkles around the diamond -->
+    <g fill="#00ff88" filter="url(#cyberGlow)">
+      <rect x="-85" y="-15" width="6" height="6" rx="1">
+        <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="79" y="8" width="6" height="6" rx="1">
+        <animate attributeName="opacity" values="0.3;1;0.3" dur="1.5s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="-15" y="-95" width="6" height="6" rx="1">
+        <animate attributeName="opacity" values="0.3;1;0.3" dur="2.3s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="8" y="89" width="6" height="6" rx="1">
+        <animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" repeatCount="indefinite"/>
+      </rect>
+    </g>
+    
+    <!-- Corner brackets (HUD style) -->
+    <g stroke="#00ff88" stroke-width="2" fill="none" filter="url(#cyberGlow)">
+      <path d="M -70 -50 L -70 -70 L -50 -70"/>
+      <path d="M 70 -50 L 70 -70 L 50 -70"/>
+      <path d="M -70 50 L -70 70 L -50 70"/>
+      <path d="M 70 50 L 70 70 L 50 70"/>
+    </g>
+    
+    <!-- Central highlight -->
+    <ellipse cx="0" cy="-10" rx="15" ry="8" fill="#ffffff" opacity="0.4"/>
+    
+    <!-- Pixelated "!!" for brilliant indication -->
+    <g fill="#ffffff" opacity="0.9">
+      <rect x="-8" y="-5" width="3" height="12"/>
+      <rect x="-8" y="10" width="3" height="3"/>
+      <rect x="5" y="-5" width="3" height="12"/>
+      <rect x="5" y="10" width="3" height="3"/>
+    </g>
+  </g>
+  
+  <!-- HUD text elements -->
+  <g fill="#00ff88" font-family="JetBrains Mono, monospace" font-size="14" filter="url(#cyberGlow)">
+    <text x="50" y="50" opacity="0.8">CYBER.BRILLIANT</text>
+    <text x="50" y="260" opacity="0.8">THREAT.ANALYZED</text>
+    <text x="250" y="50" opacity="0.8">STATUS.OPTIMAL</text>
+    <text x="250" y="260" opacity="0.8">EXPLOIT.FOUND</text>
+  </g>
+  
+  <!-- Scanning effect -->
+  <g stroke="#00ff88" stroke-width="1" opacity="0.4">
+    <line x1="0" y1="100" x2="400" y2="100">
+      <animate attributeName="y1" values="100;200;100" dur="3s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="100;200;100" dur="3s" repeatCount="indefinite"/>
+    </line>
+  </g>
+</svg>
